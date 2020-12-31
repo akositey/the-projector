@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class ProjectController extends Controller
@@ -15,6 +16,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
+        //TODO: move logic to repository/service
         $projects = Project::paginate(10)->withQueryString();
         $projects->transform(function ($project) {
             return [
@@ -22,7 +24,7 @@ class ProjectController extends Controller
                 'code' => $project->code,
                 'name' => $project->name,
                 'remarks' => $project->remarks,
-                'budget' => __("$") . number_format($project->budget, 2)
+                'budget' => number_format($project->budget, 2)
             ];
         });
         return Inertia::render('Projects/Index', [
@@ -37,7 +39,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Projects/Create');
     }
 
     /**
@@ -48,7 +50,14 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //TODO: move logic to repository/service
+        $project = Project::create($request->validate([
+            'code' => 'required|string|unique:projects',
+            'name' => 'required|string',
+            'remarks' => 'required|string',
+            'budget' => 'required|numeric'
+        ]));
+        return redirect(route('projects.index'))->with('success', 'Successfully created new project: ' . $project->name);
     }
 
     /**
@@ -70,7 +79,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return Inertia::render('Projects/Edit', [
+            'project' => $project
+        ]);
     }
 
     /**
@@ -82,7 +93,14 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        //TODO: move logic to repository/service
+        $project->update($request->validate([
+            'code' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
+            'name' => 'required|string',
+            'remarks' => 'required|string',
+            'budget' => 'required|numeric'
+        ]));
+        return redirect(route('projects.index'))->with('success', 'Successfully updated project: ' . $project->name);
     }
 
     /**
@@ -93,6 +111,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        return redirect(route('projects.index'))->with('success', 'Successfully deleted project: ' . $project->name);
+
     }
 }

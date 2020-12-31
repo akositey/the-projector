@@ -8,7 +8,7 @@
             <!-- Logo -->
             <div class="flex items-center flex-shrink-0">
               <inertia-link :href="route('projects.index')">
-                The Projector
+                <span class="uppercase text-xs">The</span> <span class="btn-indigo-light px-1 py-1">Projector</span>
               </inertia-link>
             </div>
 
@@ -137,7 +137,7 @@
           </h1>
         </header>
 
-        <!-- <flash-messages /> -->
+        <flash-messages />
 
         <div class="w-full mx-auto flex">
           <slot />
@@ -145,17 +145,23 @@
       </div>
     </main>
 
+    <!-- Dropdown Portal -->
+    <!-- <portal-target
+      name="dropdown"
+      slim
+    /> -->
+
   </div>
 </template>
 
 <script>
 import NavLink from "~/Components/NavLink";
-// import FlashMessages from "~/Components/FlashMessages";
+import FlashMessages from "~/Components/FlashMessages";
 
 export default {
   components: {
-    NavLink
-    // FlashMessages,
+    NavLink,
+    FlashMessages
   },
 
   data() {

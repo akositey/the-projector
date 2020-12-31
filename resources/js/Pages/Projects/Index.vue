@@ -54,7 +54,7 @@
           </td>
           <td class="p-3">
             <inertia-link
-              class="focus:text-indigo-500"
+              class="hover:text-indigo-500"
               :href="route('projects.edit', row.id)"
               tabindex="-1"
             >
@@ -105,7 +105,7 @@ import Pagination from "~/Components/Pagination";
 
 export default {
   props: {
-    projects: { type: Array, default: () => {} }
+    projects: { type: Object, default: () => {} }
   },
   components: {
     AppLayout,
