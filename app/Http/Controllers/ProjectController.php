@@ -15,7 +15,16 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::paginate(10);
+        $projects = Project::paginate(10)->withQueryString();
+        $projects->transform(function ($project) {
+            return [
+                'id' => $project->id,
+                'code' => $project->code,
+                'name' => $project->name,
+                'remarks' => $project->remarks,
+                'budget' => __("$") . number_format($project->budget, 2)
+            ];
+        });
         return Inertia::render('Projects/Index', [
             'projects' => $projects
         ]);

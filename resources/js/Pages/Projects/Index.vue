@@ -11,7 +11,7 @@
       </li>
       <li class="py-4">
         <inertia-link
-          class="btn-indigo"
+          class="btn-green"
           :href="route('persons.create')"
         >
           <span>Create Person</span>
@@ -61,16 +61,22 @@
               {{ row.name }}
             </inertia-link>
           </td>
-          <td class="p-3">
+          <td class="p-3 text-right">
             {{ row.budget }}
           </td>
-          <td class="p-3">
-            <!-- assignments -->
+          <td class="p-3 text-center">
+            <inertia-link
+              class="btn-indigo-light btn-sm"
+              :href="route('assignments.edit', row.id)"
+              tabindex="-1"
+            >
+              Assignments
+            </inertia-link>
           </td>
         </tr>
         <tr v-if="projects.data.length === 0">
           <td
-            class="px-6 py-4 border-t"
+            class="px-6 py-4 border-t text-center"
             colspan="4"
           >
             No projects available.
@@ -99,7 +105,7 @@ import Pagination from "~/Components/Pagination";
 
 export default {
   props: {
-    projects: { type: Object, default: () => {} }
+    projects: { type: Array, default: () => {} }
   },
   components: {
     AppLayout,

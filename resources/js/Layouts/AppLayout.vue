@@ -55,7 +55,7 @@
           <!-- Hamburger -->
           <div class="flex items-center -mr-2 sm:hidden">
             <button
-              @click="showingNavigationDropdown = ! showingNavigationDropdown"
+              @click="showDropdownNav = ! showDropdownNav"
               class="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500"
             >
               <svg
@@ -65,14 +65,14 @@
                 viewBox="0 0 24 24"
               >
                 <path
-                  :class="{'hidden': showingNavigationDropdown, 'inline-flex': ! showingNavigationDropdown }"
+                  :class="{'hidden': showDropdownNav, 'inline-flex': ! showDropdownNav }"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
                   d="M4 6h16M4 12h16M4 18h16"
                 />
                 <path
-                  :class="{'hidden': ! showingNavigationDropdown, 'inline-flex': showingNavigationDropdown }"
+                  :class="{'hidden': ! showDropdownNav, 'inline-flex': showDropdownNav }"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
@@ -87,7 +87,7 @@
 
       <!-- Responsive Navigation Menu -->
       <div
-        :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}"
+        :class="{'block': showDropdownNav, 'hidden': ! showDropdownNav}"
         class="sm:hidden"
       >
         <div class="py-4 space-y-1 px-4">
@@ -155,26 +155,18 @@ import NavLink from "~/Components/NavLink";
 export default {
   components: {
     NavLink
-    // ResponsiveNavLink
     // FlashMessages,
-    // ErrorBoundary,
   },
 
   data() {
     return {
-      showingNavigationDropdown: false
+      showDropdownNav: false
     };
   },
 
   methods: {
     logout() {
       this.$inertia.post(this.route("logout"));
-    }
-  },
-
-  computed: {
-    path() {
-      return window.location.pathname;
     }
   }
 };

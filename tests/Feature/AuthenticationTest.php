@@ -96,7 +96,7 @@ class AuthenticationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(route('projects'));
+        $response->assertRedirect(route('projects.index'));
     }
 
 }

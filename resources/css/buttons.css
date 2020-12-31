@@ -7,10 +7,11 @@
     &:disabled { @apply bg-gray-500 }
   }
 
-  .btn-red {
-    @apply px-6 py-3 text-sm font-bold text-white bg-red-600 rounded whitespace-nowrap;
+  .btn-indigo-light {
+    @apply px-6 py-3 text-sm uppercase font-bold text-indigo-700 bg-indigo-100 rounded whitespace-nowrap;
 
-    &:hover, &:focus { @apply bg-yellow-700 }
+    &:hover, &:focus { @apply bg-indigo-500 text-white}
+    &:disabled { @apply bg-gray-500 }
   }
 
   .btn-green {
@@ -24,6 +25,11 @@
 
     &:hover, &:focus { @apply bg-gray-800 }
   }
+
+  .btn-sm {
+    @apply px-2 py-1 text-xs
+  }
+
   .btn-spinner,
   .btn-spinner:after {
     border-radius: 50%;

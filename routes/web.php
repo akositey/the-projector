@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['inertia', 'auth'])->group(function () {
     Route::resource('projects', ProjectController::class);
     Route::resource('persons', PersonController::class);
+    Route::get('projects/{project}/assignments', [AssignmentController::class, 'edit'])->name('assignments.edit');
 });
 
 require __DIR__ . '/auth.php';

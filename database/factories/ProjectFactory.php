@@ -25,7 +25,7 @@ class ProjectFactory extends Factory
             'code' => $this->faker->bankAccountNumber,
             'name' => $this->faker->company,
             'remarks' => $this->faker->realText(20),
-            'budget' => $this->faker->randomDigit
+            'budget' => $this->faker->randomNumber()
         ];
     }
 }
