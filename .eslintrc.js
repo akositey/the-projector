@@ -6,6 +6,8 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:vue/strongly-recommended" //needs eslint-plugin-vue,
+    // "plugin:prettier-vue/recommended", //needs eslint-config-prettier,eslint-plugin-prettier-vue
+    // "prettier/vue" // use prettier for <template> block
   ],
   parserOptions: {
     parser: "babel-eslint", //needs babel-eslint

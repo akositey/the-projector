@@ -26,10 +26,13 @@ module.exports = {
   },
 
   variants: {
-    extend: {
-      opacity: ["disabled"]
-    },
+    // extend: {
+    //   opacity: ["disabled"]
+    // },
     textColor: ["responsive", "hover", "focus", "group-hover"]
+    // opacity: ["responsive", "hover", "focus", "disabled"],
+    // fill: ["responsive", "hover", "focus", "group-hover"]
+    // zIndex: ["responsive", "focus"]
   },
 
   plugins: [require("@tailwindcss/forms")]

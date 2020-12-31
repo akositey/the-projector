@@ -3,7 +3,7 @@
   .btn-indigo {
     @apply px-6 py-3 text-sm font-bold text-white bg-indigo-600 rounded whitespace-nowrap;
 
-    &:hover, &:focus { @apply bg-green-500 }
+    &:hover, &:focus { @apply bg-indigo-100 text-indigo-600 }
     &:disabled { @apply bg-gray-500 }
   }
 
@@ -17,13 +17,25 @@
   .btn-green {
     @apply px-6 py-3 text-sm font-bold text-white bg-green-600 rounded whitespace-nowrap;
 
-    &:hover, &:focus { @apply bg-yellow-700 }
+    &:hover, &:focus { @apply bg-green-100 text-green-700}
+  }
+
+  .btn-red {
+    @apply px-6 py-3 text-sm font-bold text-white bg-red-600 rounded whitespace-nowrap;
+
+    &:hover, &:focus { @apply bg-red-100 text-red-600}
+  }
+
+  .btn-red-light {
+    @apply px-6 py-3 text-sm font-bold text-red-600 bg-red-100 rounded whitespace-nowrap;
+
+    &:hover, &:focus { @apply text-white bg-red-600}
   }
 
   .btn-gray {
     @apply px-6 py-3 text-sm font-bold text-white bg-gray-500 rounded whitespace-nowrap;
 
-    &:hover, &:focus { @apply bg-gray-800 }
+    &:hover, &:focus { @apply bg-gray-100 text-gray-800}
   }
 
   .btn-sm {

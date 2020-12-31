@@ -17,6 +17,10 @@ class HandleInertiaRequests extends Middleware
 
             // Synchronously
             // 'appName' => config('app.name'),
+            'flash' => [
+                'success' => fn() => $request->session()->get('success'),
+                'error' => fn() => $request->session()->get('error')
+            ],
 
             // Lazily
             'user' => fn() => $request->user()
