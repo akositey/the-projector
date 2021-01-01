@@ -28,7 +28,10 @@ Route::middleware(['inertia', 'auth'])->group(function () {
     Route::resource('projects', ProjectController::class);
     Route::resource('persons', PersonController::class);
     Route::patch('persons/{person}/updatePassword', [PersonController::class, 'updatePassword'])->name('persons.password.update');
+    // project assignment
+    Route::delete('projects/{project}/assignments/{person}', [AssignmentController::class, 'destroyPerson'])->name('assignments.destroyPerson');
     Route::get('projects/{project}/assignments', [AssignmentController::class, 'editPersons'])->name('assignments.editPersons');
+    Route::post('projects/{project}/assignments', [AssignmentController::class, 'storePerson'])->name('assignments.storePerson');
     Route::get('persons/{person}/assignments', [AssignmentController::class, 'editProjects'])->name('assignments.editProjects');
 });
 

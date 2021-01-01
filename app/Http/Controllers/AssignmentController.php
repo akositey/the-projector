@@ -24,6 +24,28 @@ class AssignmentController extends Controller
     }
 
     /**
+     * @param Project $project
+     * @param Person  $person
+     */
+    public function storePerson(Request $request, Project $project)
+    {
+        $project->persons()->attach($request->person_id, ['created_at' => now()]);
+        return redirect(route('assignments.editPersons', $project));
+    }
+
+    /**
+     * @param Request $request
+     * @param Project $project
+     */
+    public function destroyPerson(Project $project, Person $person)
+    {
+        if ($person->id) {
+            $project->persons()->detach($person->id);
+        }
+        return redirect(route('assignments.editPersons', $project));
+    }
+
+    /**
      * @param Request $request
      * @param Person  $person
      */
