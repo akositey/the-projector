@@ -10,16 +10,39 @@ use Inertia\Inertia;
 class AssignmentController extends Controller
 {
     /**
+     * for assigning Persons to a Project
      * @param Request $request
      * @param Project $project
      */
     public function editPersons(Project $project)
     {
-
         return Inertia::render('Assignments/EditPersons', [
             'project' => $project,
-            'persons' => $project->persons
+            'assignedPersons' => $project->persons,
+            'availablePersons' => Person::whereNotIn('id', $project->persons->pluck('id')->toArray())->get()
         ]);
+    }
+
+    /**
+     * @param Project $project
+     * @param Person  $person
+     */
+    public function storePerson(Request $request, Project $project)
+    {
+        $project->persons()->attach($request->person_id, ['created_at' => now()]);
+        return redirect(route('assignments.editPersons', $project));
+    }
+
+    /**
+     * @param Request $request
+     * @param Project $project
+     */
+    public function destroyPerson(Project $project, Person $person)
+    {
+        if ($person->id) {
+            $project->persons()->detach($person->id);
+        }
+        return redirect(route('assignments.editPersons', $project));
     }
 
     /**

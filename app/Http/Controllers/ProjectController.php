@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class ProjectController extends Controller
@@ -45,18 +45,13 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request    $request
+     * @param  \App\Http\Requests\ProjectRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProjectRequest $request)
     {
         //TODO: move logic to repository/service
-        $project = Project::create($request->validate([
-            'code' => 'required|string|unique:projects',
-            'name' => 'required|string',
-            'remarks' => 'required|string',
-            'budget' => 'required|numeric'
-        ]));
+        $project = Project::create($request->validated());
         return redirect(route('projects.index'))->with('success', 'Successfully created new project: ' . $project->name);
     }
 
@@ -87,19 +82,14 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request    $request
-     * @param  \App\Models\Project         $project
+     * @param  \App\Http\Requests\ProjectRequest $request
+     * @param  \App\Models\Project               $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(ProjectRequest $request, Project $project)
     {
         //TODO: move logic to repository/service
-        $project->update($request->validate([
-            'code' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
-            'name' => 'required|string',
-            'remarks' => 'required|string',
-            'budget' => 'required|numeric'
-        ]));
+        $project->update($request->validated());
         return redirect(route('projects.index'))->with('success', 'Successfully updated project: ' . $project->name);
     }
 
