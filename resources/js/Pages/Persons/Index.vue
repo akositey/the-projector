@@ -3,18 +3,18 @@
     <portal to="other-tasks">
       <li class="py-4">
         <inertia-link
-          class="btn-indigo"
-          :href="route('projects.create')"
-        >
-          <span>Create Project</span>
-        </inertia-link>
-      </li>
-      <li class="py-4">
-        <inertia-link
           class="btn-green"
           :href="route('persons.create')"
         >
           <span>Create Person</span>
+        </inertia-link>
+      </li>
+      <li class="py-4">
+        <inertia-link
+          class="btn-indigo"
+          :href="route('persons.create')"
+        >
+          <span>Create Project</span>
         </inertia-link>
       </li>
     </portal>
@@ -35,55 +35,61 @@
             #
           </th>
           <th class="p-4 text-center">
-            Project Name
+            Username
           </th>
           <th class="p-4 text-center">
-            Budget
+            Last Name
+          </th>
+          <th class="p-4 text-center">
+            First Name
           </th>
           <th class="p-4 text-center">
             Tasks
           </th>
         </tr>
         <tr
-          v-for="(row,i) of projects.data"
+          v-for="(row,i) of persons.data"
           :key="row.id"
           class="border-t hover:bg-gray-100 focus-within:bg-gray-100"
         >
           <td class="p-3">
-            {{ projects.from + i }}
+            {{ persons.from + i }}
           </td>
           <td class="p-3">
             <inertia-link
               class="hover:text-indigo-500"
-              :href="route('projects.edit', row.id)"
+              :href="route('persons.edit', row.id)"
               tabindex="-1"
             >
-              {{ row.name }}
+              {{ row.username }}
             </inertia-link>
           </td>
           <td class="p-3 text-right">
-            {{ row.budget }}
+            {{ row.last_name }}
+          </td>
+          <td class="p-3 text-right">
+            {{ row.first_name }}
           </td>
           <td class="p-3 text-center">
             <inertia-link
-              class="btn-indigo-light btn-sm"
-              :href="route('assignments.editPersons', row.id)"
+              class="btn-green-light btn-sm hover:text-white hover:bg-green-500"
+              :href="route('assignments.editProjects', row.id)"
               tabindex="-1"
             >
-              Assignments
+              Projects
             </inertia-link>
           </td>
         </tr>
-        <tr v-if="projects.data.length === 0">
+        <tr v-if="persons.data.length === 0">
           <td
             class="px-6 py-4 border-t text-center"
             colspan="4"
           >
-            No projects available.
+            No persons available.
           </td>
         </tr>
       </table>
-      <pagination :links="projects.links" />
+      <pagination :links="persons.links" />
     </div>
 
     <!-- right side bar -->
@@ -105,7 +111,7 @@ import Pagination from "~/Components/Pagination";
 
 export default {
   props: {
-    projects: { type: Object, default: () => {} }
+    persons: { type: Object, default: () => {} }
   },
   components: {
     AppLayout,

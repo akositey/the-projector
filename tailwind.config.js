@@ -1,10 +1,18 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
-  purge: [
-    "./storage/framework/views/*.php",
-    "./resources/views/**/*.blade.php"
-  ],
+  purge: {
+    mode: "layers",
+    layers: ["base", "components", "utilities"],
+    content: [
+      "./resources/views/**/*.blade.php",
+      "./storage/framework/views/*.php",
+      "./resources/js/**/*.vue"
+    ],
+    options: {
+      defaultExtractor: content => content.match(/[\w-/:.]+(?<!:)/g) || []
+    }
+  },
 
   theme: {
     extend: {
@@ -26,14 +34,12 @@ module.exports = {
   },
 
   variants: {
-    // extend: {
-    //   opacity: ["disabled"]
-    // },
-    textColor: ["responsive", "hover", "focus", "group-hover"]
+    extend: {
+      opacity: ["disabled"]
+    }
     // opacity: ["responsive", "hover", "focus", "disabled"],
     // fill: ["responsive", "hover", "focus", "group-hover"]
     // zIndex: ["responsive", "focus"]
   },
-
   plugins: [require("@tailwindcss/forms")]
 };
