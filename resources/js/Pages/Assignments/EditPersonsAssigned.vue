@@ -72,18 +72,19 @@ export default {
     addMember() {
       this.sending = true;
       this.$inertia.post(
-        this.route("assignments.storePerson", this.project.id),
+        this.route("projects.assignments.store", this.project.id),
         this.form,
         {
           onFinish: () => {
             this.sending = false;
+            this.form.person_id = null;
           }
         }
       );
     },
     removeMember(id) {
       this.$inertia.delete(
-        this.route("assignments.destroyPerson", {
+        this.route("projects.assignments.destroy", {
           project: this.project.id,
           person: id
         })

@@ -3,24 +3,25 @@
     <template #header>
       Edit Person: {{person.last_name}}, {{person.first_name}}
     </template>
-
-    <div class="w-1/2 m-4 overflow-hidden bg-white leading-relaxed text-lg rounded shadow-lg">
-      <person-form
-        :form="form"
-        :errors="errors"
-        :loading="sending"
-        :edit="true"
-        @submit="submit"
-        @delete="initDelete"
-      />
-    </div>
-    <div class="w-1/2 m-4 overflow-hidden bg-white leading-relaxed text-lg rounded shadow-lg">
-      <person-password-form
-        :form="passwordForm"
-        :errors="errors"
-        :loading="sending"
-        @submit="submitPasswordChange"
-      />
+    <div class="flex items-start">
+      <div class="w-full md:w-1/2 m-4 overflow-hidden bg-white leading-relaxed text-lg rounded shadow-lg">
+        <person-form
+          :form="form"
+          :errors="errors"
+          :loading="sending"
+          :edit="true"
+          @submit="submit"
+          @delete="initDelete"
+        />
+      </div>
+      <div class="w-full md:w-1/2 m-4 overflow-hidden bg-white leading-relaxed text-lg rounded shadow-lg">
+        <person-password-form
+          :form="passwordForm"
+          :errors="errors"
+          :loading="sending"
+          @submit="submitPasswordChange"
+        />
+      </div>
     </div>
   </app-layout>
 </template>

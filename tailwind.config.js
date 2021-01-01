@@ -35,11 +35,9 @@ module.exports = {
 
   variants: {
     extend: {
-      opacity: ["disabled"]
+      opacity: ["disabled"],
+      gradientColorStops: ["group-hover"]
     }
-    // opacity: ["responsive", "hover", "focus", "disabled"],
-    // fill: ["responsive", "hover", "focus", "group-hover"]
-    // zIndex: ["responsive", "focus"]
   },
   plugins: [require("@tailwindcss/forms")]
 };

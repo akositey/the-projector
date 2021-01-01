@@ -7,16 +7,16 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class AssignmentController extends Controller
+class ProjectAssignmentController extends Controller
 {
     /**
      * for assigning Persons to a Project
      * @param Request $request
      * @param Project $project
      */
-    public function editPersons(Project $project)
+    public function edit(Project $project)
     {
-        return Inertia::render('Assignments/EditPersons', [
+        return Inertia::render('Assignments/EditPersonsAssigned', [
             'project' => $project,
             'assignedPersons' => $project->persons,
             'availablePersons' => Person::whereNotIn('id', $project->persons->pluck('id')->toArray())->get()
@@ -27,34 +27,21 @@ class AssignmentController extends Controller
      * @param Project $project
      * @param Person  $person
      */
-    public function storePerson(Request $request, Project $project)
+    public function store(Request $request, Project $project)
     {
         $project->persons()->attach($request->person_id, ['created_at' => now()]);
-        return redirect(route('assignments.editPersons', $project));
+        return redirect(route('projects.assignments.edit', $project));
     }
 
     /**
      * @param Request $request
      * @param Project $project
      */
-    public function destroyPerson(Project $project, Person $person)
+    public function destroy(Project $project, Person $person)
     {
         if ($person->id) {
             $project->persons()->detach($person->id);
         }
-        return redirect(route('assignments.editPersons', $project));
-    }
-
-    /**
-     * @param Request $request
-     * @param Person  $person
-     */
-    public function editProjects(Person $person)
-    {
-
-        return Inertia::render('Assignments/EditProjects', [
-            'person' => $person,
-            'projects' => $person->projects
-        ]);
+        return redirect(route('projects.assignments.edit', $project));
     }
 }

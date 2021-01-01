@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="$emit('submit')">
-    <div class="grid md:grid-cols-2 gap-8 p-8">
+    <div class="grid md:grid-cols-1 p-8">
       <text-input
         type="password"
         v-model="form.current_password"

@@ -12,7 +12,7 @@
       <li class="py-4">
         <inertia-link
           class="btn-indigo"
-          :href="route('persons.create')"
+          :href="route('projects.create')"
         >
           <span>Create Project</span>
         </inertia-link>
@@ -20,87 +20,89 @@
     </portal>
 
     <!-- content -->
-    <div class="flex-1 overflow-hidden leading-relaxed text-lg">
-      <nav class="md:hidden">
+    <div class="flex">
+      <div class="w-full md:w-5/6 overflow-hidden leading-relaxed text-lg">
+        <nav class="md:hidden">
+          <portal-target
+            name="other-tasks"
+            tag="ul"
+            class="list-none flex flex-row justify-end space-x-4"
+          />
+        </nav>
+
+        <table class="w-full my-4 whitespace-no-wrap bg-white">
+          <tr class="font-bold text-left">
+            <th class="p-4 text-center">
+              #
+            </th>
+            <th class="p-4 text-center">
+              Username
+            </th>
+            <th class="p-4 text-center">
+              Last Name
+            </th>
+            <th class="p-4 text-center">
+              First Name
+            </th>
+            <th class="p-4 text-center">
+              Tasks
+            </th>
+          </tr>
+          <tr
+            v-for="(row,i) of persons.data"
+            :key="row.id"
+            class="border-t hover:bg-gray-100 focus-within:bg-gray-100"
+          >
+            <td class="p-3 text-center">
+              {{ persons.from + i }}
+            </td>
+            <td class="p-3">
+              <inertia-link
+                class="hover:text-green-600"
+                :href="route('persons.edit', row.id)"
+                tabindex="-1"
+              >
+                {{ row.username }}
+              </inertia-link>
+            </td>
+            <td class="p-3">
+              {{ row.last_name }}
+            </td>
+            <td class="p-3">
+              {{ row.first_name }}
+            </td>
+            <td class="p-3 text-center">
+              <inertia-link
+                class="btn-green-light btn-sm hover:text-white hover:bg-green-500"
+                :href="route('persons.assignments.edit', row.id)"
+                tabindex="-1"
+              >
+                Assignments
+              </inertia-link>
+            </td>
+          </tr>
+          <tr v-if="persons.data.length === 0">
+            <td
+              class="px-6 py-4 border-t text-center"
+              colspan="4"
+            >
+              No persons available.
+            </td>
+          </tr>
+        </table>
+        <pagination :links="persons.links" />
+      </div>
+
+      <!-- right side bar -->
+      <nav class="hidden md:block md:w-1/6 pl-6 flex-shrink-0 border-l leading-relaxed">
+        <div class="my-4 text-xs font-bold uppercase text-gray-500 tracking-widest">Other Tasks</div>
         <portal-target
           name="other-tasks"
           tag="ul"
-          class="list-none flex flex-row justify-end space-x-4"
+          class="list-none"
         />
       </nav>
-
-      <table class="w-full my-4 whitespace-no-wrap bg-white">
-        <tr class="font-bold text-left">
-          <th class="p-4 text-center">
-            #
-          </th>
-          <th class="p-4 text-center">
-            Username
-          </th>
-          <th class="p-4 text-center">
-            Last Name
-          </th>
-          <th class="p-4 text-center">
-            First Name
-          </th>
-          <th class="p-4 text-center">
-            Tasks
-          </th>
-        </tr>
-        <tr
-          v-for="(row,i) of persons.data"
-          :key="row.id"
-          class="border-t hover:bg-gray-100 focus-within:bg-gray-100"
-        >
-          <td class="p-3">
-            {{ persons.from + i }}
-          </td>
-          <td class="p-3">
-            <inertia-link
-              class="hover:text-indigo-500"
-              :href="route('persons.edit', row.id)"
-              tabindex="-1"
-            >
-              {{ row.username }}
-            </inertia-link>
-          </td>
-          <td class="p-3 text-right">
-            {{ row.last_name }}
-          </td>
-          <td class="p-3 text-right">
-            {{ row.first_name }}
-          </td>
-          <td class="p-3 text-center">
-            <inertia-link
-              class="btn-green-light btn-sm hover:text-white hover:bg-green-500"
-              :href="route('assignments.editProjects', row.id)"
-              tabindex="-1"
-            >
-              Projects
-            </inertia-link>
-          </td>
-        </tr>
-        <tr v-if="persons.data.length === 0">
-          <td
-            class="px-6 py-4 border-t text-center"
-            colspan="4"
-          >
-            No persons available.
-          </td>
-        </tr>
-      </table>
-      <pagination :links="persons.links" />
     </div>
-
-    <!-- right side bar -->
-    <nav class="hidden md:block md:w-48 lg:w-56 pl-6 flex-shrink-0 border-l leading-relaxed">
-      <div class="my-4 text-xs font-bold uppercase text-gray-500 tracking-widest">Other Tasks</div>
-      <portal-target
-        name="other-tasks"
-        tag="ul"
-        class="list-none"
-      />
-    </nav>
 
   </app-layout>
 </template>
@@ -108,6 +110,8 @@
 <script>
 import AppLayout from "~/Layouts/AppLayout";
 import Pagination from "~/Components/Pagination";
+import { Wormhole } from "portal-vue";
+Wormhole.trackInstances = false; //disable warning
 
 export default {
   props: {

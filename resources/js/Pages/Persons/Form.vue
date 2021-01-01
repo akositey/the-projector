@@ -62,7 +62,7 @@
       </dropdown>
       <loading-button
         :loading="loading"
-        class="btn-indigo"
+        class="btn-green"
         type="submit"
       >
         Save
