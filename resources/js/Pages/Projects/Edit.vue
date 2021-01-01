@@ -4,7 +4,7 @@
       Edit Project
     </template>
 
-    <div class="w-full my-4 overflow-hidden bg-white leading-relaxed text-lg">
+    <div class="w-full my-4 overflow-hidden bg-white leading-relaxed text-lg rounded shadow-lg">
       <project-form
         :form="form"
         :errors="errors"

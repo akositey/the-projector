@@ -27,7 +27,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['inertia', 'auth'])->group(function () {
     Route::resource('projects', ProjectController::class);
     Route::resource('persons', PersonController::class);
-    Route::get('projects/{project}/assignments', [AssignmentController::class, 'edit'])->name('assignments.edit');
+    Route::patch('persons/{person}/updatePassword', [PersonController::class, 'updatePassword'])->name('persons.password.update');
+    Route::get('projects/{project}/assignments', [AssignmentController::class, 'editPersons'])->name('assignments.editPersons');
+    Route::get('persons/{person}/assignments', [AssignmentController::class, 'editProjects'])->name('assignments.editProjects');
 });
 
 require __DIR__ . '/auth.php';

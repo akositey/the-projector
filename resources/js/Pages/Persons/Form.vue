@@ -2,36 +2,45 @@
   <form @submit.prevent="$emit('submit')">
     <div class="grid md:grid-cols-2 gap-8 p-8">
       <text-input
-        v-model="form.code"
-        :error="errors.code"
+        v-model="form.last_name"
+        :error="errors.last_name"
         class="w-full pb-4"
-        label="Code"
+        label="Last Name"
       />
       <text-input
-        v-model="form.name"
-        :error="errors.name"
+        v-model="form.first_name"
+        :error="errors.first_name"
         class="w-full pb-4"
-        label="Name"
+        label="First Name"
       />
       <text-input
-        type="number"
-        v-model="form.budget"
-        :error="errors.budget"
+        v-model="form.username"
+        :error="errors.username"
         class="w-full pb-4"
-        label="Budget"
+        label="Username"
       />
-      <textarea-input
-        v-model="form.remarks"
-        :error="errors.remarks"
-        class="w-full pb-4 col-span-full"
-        label="Remarks"
+      <text-input
+        v-if="!edit"
+        type="password"
+        v-model="form.password"
+        :error="errors.password"
+        class="w-full pb-4 col-start-1"
+        label="Password"
+      />
+      <text-input
+        v-if="!edit"
+        type="password"
+        v-model="form.password_confirmation"
+        :error="errors.password_confirmation"
+        class="w-full pb-4"
+        label="Confirm Password"
       />
     </div>
     <div
       class="flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200"
-      :class="showDelete ? 'justify-between':'justify-end'"
+      :class="edit?'justify-between':'justify-end'"
     >
-      <dropdown v-if="showDelete">
+      <dropdown v-if="edit">
         <template #trigger>
           <button
             class="btn-red"
@@ -63,13 +72,11 @@
 </template>
 <script>
 import TextInput from "~/Components/TextInput";
-import TextareaInput from "~/Components/TextareaInput";
 import LoadingButton from "~/Components/LoadingButton";
 import Dropdown from "../../Components/Dropdown.vue";
 export default {
   components: {
     TextInput,
-    TextareaInput,
     LoadingButton,
     Dropdown
   },
@@ -78,7 +85,7 @@ export default {
       type: Boolean,
       default: false
     },
-    showDelete: {
+    edit: {
       type: Boolean,
       default: false
     },

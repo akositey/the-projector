@@ -1,7 +1,10 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+/* purgecss start ignore */
 @import './buttons';
 @import './nprogress';
 @import './form';
 @import './etc';
+/* purgecss end ignore */
