@@ -2,7 +2,12 @@
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                {{-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> --}}
+                <div class="flex items-center flex-shrink-0">
+                    <inertia-link :href="route('projects.index')">
+                        <span class="uppercase text-lg">The</span> <span class="btn-indigo-light text-xl px-3 py-3">Projector</span>
+                    </inertia-link>
+                </div>
             </a>
         </x-slot>
 

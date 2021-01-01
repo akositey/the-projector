@@ -139,7 +139,7 @@
 
         <flash-messages />
 
-        <div class="w-full mx-auto flex">
+        <div class="container w-full mx-auto">
           <slot />
         </div>
       </div>

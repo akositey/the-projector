@@ -6,25 +6,25 @@
     <div class="inline-block">
 
       <select-input
-        v-model="form.person_id"
+        v-model="form.project_id"
         class="pr-2 md:w-96"
-        label="New Member"
+        label="New Project"
       >
         <option
-          v-for="(person,i) of availablePersons"
+          v-for="(project,i) of availableProjects"
           :key="i"
-          :value="person.id"
+          :value="project.id"
         >
-          {{ person.last_name }}, {{ person.first_name }}
+          {{ project.code }}, {{ project.name }}
         </option>
       </select-input>
     </div>
     <div class="inline-block ">
 
       <loading-button
-        :disabled="!form.person_id"
+        :disabled="!form.project_id"
         :loading="loading"
-        class="btn-indigo"
+        class="btn-green"
         type="submit"
       >
         Add
@@ -43,7 +43,7 @@ export default {
     SelectInput
   },
   props: {
-    availablePersons: {
+    availableProjects: {
       type: [Object, Array],
       default: () => {}
     },

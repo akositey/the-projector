@@ -16,19 +16,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //TODO: move logic to repository/service
-        $projects = Project::paginate(10)->withQueryString();
-        $projects->transform(function ($project) {
-            return [
-                'id' => $project->id,
-                'code' => $project->code,
-                'name' => $project->name,
-                'remarks' => $project->remarks,
-                'budget' => number_format($project->budget, 2)
-            ];
-        });
         return Inertia::render('Projects/Index', [
-            'projects' => $projects
+            'projects' => Project::paginate(10)->withQueryString()
         ]);
     }
 
@@ -50,7 +39,6 @@ class ProjectController extends Controller
      */
     public function store(ProjectRequest $request)
     {
-        //TODO: move logic to repository/service
         $project = Project::create($request->validated());
         return redirect(route('projects.index'))->with('success', 'Successfully created new project: ' . $project->name);
     }
@@ -88,7 +76,6 @@ class ProjectController extends Controller
      */
     public function update(ProjectRequest $request, Project $project)
     {
-        //TODO: move logic to repository/service
         $project->update($request->validated());
         return redirect(route('projects.index'))->with('success', 'Successfully updated project: ' . $project->name);
     }
