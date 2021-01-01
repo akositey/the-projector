@@ -15,7 +15,10 @@
 <script>
 export default {
   props: {
-    loading: Boolean
+    loading: {
+      type: Boolean,
+      default: false
+    }
   }
 };
 </script>

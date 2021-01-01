@@ -10,15 +10,16 @@ use Inertia\Inertia;
 class AssignmentController extends Controller
 {
     /**
+     * for assigning Persons to a Project
      * @param Request $request
      * @param Project $project
      */
     public function editPersons(Project $project)
     {
-
         return Inertia::render('Assignments/EditPersons', [
             'project' => $project,
-            'persons' => $project->persons
+            'assignedPersons' => $project->persons,
+            'availablePersons' => Person::whereNotIn('id', $project->persons->pluck('id')->toArray())->get()
         ]);
     }
 

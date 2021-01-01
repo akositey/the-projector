@@ -6,6 +6,7 @@ use App\Http\Requests\PersonPasswordChangeRequest;
 use App\Http\Requests\PersonRequest;
 use App\Models\Person;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class PersonController extends Controller
@@ -50,7 +51,12 @@ class PersonController extends Controller
      */
     public function store(PersonRequest $request)
     {
-        $person = Person::create($request->all());
+        $person = Person::create([
+            'last_name' => $request->last_name,
+            'first_name' => $request->first_name,
+            'username' => $request->username,
+            'password' => Hash::make($request->password)
+        ]);
         return redirect(route('persons.index'))->with('success', 'Successfully created new person: ' . $person->first_name);
     }
 
@@ -98,8 +104,9 @@ class PersonController extends Controller
      */
     public function updatePassword(PersonPasswordChangeRequest $request, Person $person)
     {
-        //TODO: move logic to repository/service
-        $person->update($request->all());
+        $person->password = Hash::make($request->password);
+        $person->save();
+
         return redirect(route('persons.index'))->with('success', 'Successfully updated password for person: ' . $person->first_name);
     }
 
