@@ -16,13 +16,6 @@ class DevSeeder extends Seeder
     {
         if (App::environment('local', 'testing', 'staging')) {
 
-            \App\Models\User::create([
-                'name' => 'Chester',
-                'email' => 'chester@test.com',
-                'password' => bcrypt('password'),
-                'email_verified_at' => now()
-            ]);
-
             \App\Models\Project::factory(30)->create();
             \App\Models\Person::factory(10)->create();
         }
