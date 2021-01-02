@@ -10,22 +10,23 @@ use Inertia\Inertia;
 class PersonAssignmentController extends Controller
 {
     /**
-     * for assigning Persons to a Person
+     * view the page where user can assign Projects to a Person
      * @param Request $request
      * @param Person  $person
      */
     public function edit(Person $person)
     {
+        $assignedProjectIDs = $person->projects->pluck('id')->toArray();
         return Inertia::render('Assignments/EditProjectsAssigned', [
             'person' => $person,
             'assignedProjects' => $person->projects,
-            'availableProjects' => Project::whereNotIn('id', $person->projects->pluck('id')->toArray())->get()
+            'availableProjects' => Project::notIn($assignedProjectIDs)
         ]);
     }
 
     /**
-     * @param Person $person
-     * @param Person $person
+     * @param Request $request
+     * @param Person  $person
      */
     public function store(Request $request, Person $person)
     {
@@ -34,8 +35,8 @@ class PersonAssignmentController extends Controller
     }
 
     /**
-     * @param Request $request
      * @param Person  $person
+     * @param Project $project
      */
     public function destroy(Person $person, Project $project)
     {

@@ -18,7 +18,7 @@ class PersonController extends Controller
     public function index()
     {
         return Inertia::render('Persons/Index', [
-            'persons' => Person::paginate(10)->withQueryString()
+            'persons' => Person::paginated()
         ]);
     }
 

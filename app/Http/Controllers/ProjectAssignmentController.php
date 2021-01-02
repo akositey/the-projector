@@ -16,10 +16,11 @@ class ProjectAssignmentController extends Controller
      */
     public function edit(Project $project)
     {
+        $assignedPersonsIDs = $project->persons->pluck('id')->toArray();
         return Inertia::render('Assignments/EditPersonsAssigned', [
             'project' => $project,
             'assignedPersons' => $project->persons,
-            'availablePersons' => Person::whereNotIn('id', $project->persons->pluck('id')->toArray())->get()
+            'availablePersons' => Person::notIn($assignedPersonsIDs)
         ]);
     }
 
