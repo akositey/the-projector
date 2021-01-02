@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\BaseModel;
 use App\Models\Person;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class Project extends BaseModel
 {
     use HasFactory;
 
@@ -27,4 +27,5 @@ class Project extends Model
     {
         return $this->belongsToMany(Person::class, 'project_assignments');
     }
+
 }
